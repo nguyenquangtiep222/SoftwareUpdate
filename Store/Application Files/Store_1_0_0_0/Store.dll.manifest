@@ -276,7 +276,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>m52oqW9qWqmqE+aVNBbh4qrAhL3ZrzlaDptNzfm/xQk=</dsig:DigestValue>
+      <dsig:DigestValue>nTSGQz61WqDlsamOTFK95HwaLHxMr65YXDqnazgAPPc=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Store.exe" size="157696">
