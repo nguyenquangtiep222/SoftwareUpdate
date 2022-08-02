@@ -1,0 +1,1 @@
+https://www.codeproject.com/Articles/265751/Application-Auto-update-via-Online-Files-in-Csharp
