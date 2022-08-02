@@ -1,0 +1,15 @@
+{
+  "Database": {
+    "DataSource": "",
+    "InitialCatalog": "",
+    "UserID": "",
+    "Password": ""
+  },
+  "Store": {
+    "Name": "",
+    "Description": "",
+    "Address": "",
+    "Contact": "",
+    "BankAccount": ""
+  }
+}
