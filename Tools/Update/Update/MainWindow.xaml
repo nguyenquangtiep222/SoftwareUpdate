@@ -7,8 +7,17 @@
         mc:Ignorable="d"
         Title="MainWindow"
         Height="450"
-        Width="800">
+        Width="800"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
+        Closed="Window_Closed">
     <Grid>
+        <Button x:Name="btnTest"
+                Click="btnTest_Click"
+                Content="Button"
+                HorizontalAlignment="Left"
+                Margin="222,104,0,0"
+                VerticalAlignment="Top" />
 
     </Grid>
 </Window>
