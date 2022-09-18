@@ -41,13 +41,8 @@ namespace Update
                 }
 
                 // Unzip
-                var filename = $"e {AppDomain.CurrentDomain.BaseDirectory}{_param.UpdateFile}";
-                var processStartInfo = new ProcessStartInfo
-                {
-                    FileName = @"C:\Program Files\7-Zip\7z.exe",
-                    Arguments = filename
-                };
-                Process.Start(processStartInfo);
+                var filename = $"{AppDomain.CurrentDomain.BaseDirectory}{_param.UpdateFile}";
+                ExtractFile(filename, AppDomain.CurrentDomain.BaseDirectory);
 
                 // Delete files
                 if (File.Exists(_param.VersionFile))
@@ -74,6 +69,26 @@ namespace Update
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void ExtractFile(string source, string destination)
+        {
+            string zPath = @"C:\Program Files\7-Zip\7zG.exe";
+            try
+            {
+                ProcessStartInfo processInfo = new ProcessStartInfo
+                {
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    FileName = zPath,
+                    Arguments = "x \"" + source + "\" -o" + destination
+                };
+                Process process = Process.Start(processInfo);
+                process.WaitForExit();
+            }
+            catch
+            {
+
             }
         }
     }
