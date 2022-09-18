@@ -88,14 +88,14 @@ namespace Update
                 {
                     WindowStyle = ProcessWindowStyle.Hidden,
                     FileName = zPath,
-                    Arguments = "x \"" + source + "\" -o" + destination
+                    Arguments = $"x \"{source}\" -ao -o\"{destination}\""
                 };
                 var process = Process.Start(processInfo);
                 process?.WaitForExit();
             }
-            catch
+            catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
         }
     }
