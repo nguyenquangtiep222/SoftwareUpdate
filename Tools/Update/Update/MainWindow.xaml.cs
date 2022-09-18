@@ -41,6 +41,13 @@ namespace Update
                 }
 
                 // Unzip
+                var filename = $"e {AppDomain.CurrentDomain.BaseDirectory}{_param.UpdateFile}";
+                var processStartInfo = new ProcessStartInfo
+                {
+                    FileName = @"C:\Program Files\7-Zip\7z.exe",
+                    Arguments = filename
+                };
+                Process.Start(processStartInfo);
 
                 // Delete files
                 if (File.Exists(_param.VersionFile))
