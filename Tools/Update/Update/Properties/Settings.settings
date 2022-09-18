@@ -8,5 +8,8 @@
     <Setting Name="VersionFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">version.txt</Value>
     </Setting>
+    <Setting Name="AppName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Store</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

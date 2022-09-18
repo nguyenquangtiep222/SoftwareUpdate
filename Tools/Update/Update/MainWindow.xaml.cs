@@ -35,17 +35,18 @@ namespace Update
                 Console.WriteLine("Update =====> Startup application");
 
                 // Kill Store.exe
-                var processes = Process.GetProcessesByName("Store");
+                var processes = Process.GetProcessesByName(_param.AppName);
                 if (processes.Length > 0)
                 {
                     foreach (var process in processes)
                         process.Kill();
                 }
 
-                // Unzip
-                var filename = $"{AppDomain.CurrentDomain.BaseDirectory}{_param.UpdateFile}";
+                // Extract update.7z
+                var basePath = AppDomain.CurrentDomain.BaseDirectory;
+                var filename = $"{basePath}{_param.UpdateFile}";
                 if (File.Exists(filename))
-                    ExtractFile(filename, AppDomain.CurrentDomain.BaseDirectory);
+                    ExtractFile(filename, basePath);
 
                 // Delete files
                 if (File.Exists(_param.VersionFile))
@@ -88,10 +89,11 @@ namespace Update
                 {
                     WindowStyle = ProcessWindowStyle.Hidden,
                     FileName = zPath,
-                    Arguments = $"x \"{source}\" -ao -o\"{destination}\""
+                    Arguments = $"x \"{source}\" -aoa -o\"{destination}\""
                 };
                 var process = Process.Start(processInfo);
                 process?.WaitForExit();
+                process?.Dispose();
             }
             catch (Exception ex)
             {
