@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Windows;
 
@@ -32,13 +33,23 @@ namespace Update
         {
             try
             {
+                // Kill Store.exe
                 var processes = Process.GetProcessesByName("Store");
                 if (processes.Length > 0)
                 {
                     foreach (var process in processes)
                         process.Kill();
                 }
-                Thread.Sleep(1000);
+
+                // Unzip
+
+                // Delete files
+                if (File.Exists(_param.VersionFile))
+                    File.Delete(_param.VersionFile);
+                if (File.Exists(_param.UpdateFile))
+                    File.Delete(_param.UpdateFile);
+
+                // Shutdown app
                 Application.Current.Shutdown();
                 Environment.Exit(0);
             }
