@@ -23,7 +23,7 @@ namespace Update
             StartupApp();
         }
 
-        private void Window_Closed(object sender, System.EventArgs e)
+        private void Window_Closed(object sender, EventArgs e)
         {
             ShutdownApp();
         }
@@ -32,6 +32,8 @@ namespace Update
         {
             try
             {
+                Console.WriteLine("Update =====> Startup application");
+
                 // Kill Store.exe
                 var processes = Process.GetProcessesByName("Store");
                 if (processes.Length > 0)
@@ -70,6 +72,10 @@ namespace Update
             {
                 Console.WriteLine(ex.Message);
             }
+            finally
+            {
+                Console.WriteLine("Update =====> Shutdown application");
+            }
         }
 
         public void ExtractFile(string source, string destination)
@@ -77,14 +83,14 @@ namespace Update
             string zPath = @"C:\Program Files\7-Zip\7zG.exe";
             try
             {
-                ProcessStartInfo processInfo = new ProcessStartInfo
+                var processInfo = new ProcessStartInfo
                 {
                     WindowStyle = ProcessWindowStyle.Hidden,
                     FileName = zPath,
                     Arguments = "x \"" + source + "\" -o" + destination
                 };
-                Process process = Process.Start(processInfo);
-                process.WaitForExit();
+                var process = Process.Start(processInfo);
+                process?.WaitForExit();
             }
             catch
             {
