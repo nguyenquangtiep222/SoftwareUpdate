@@ -44,7 +44,8 @@ namespace Update
 
                 // Unzip
                 var filename = $"{AppDomain.CurrentDomain.BaseDirectory}{_param.UpdateFile}";
-                ExtractFile(filename, AppDomain.CurrentDomain.BaseDirectory);
+                if (File.Exists(filename))
+                    ExtractFile(filename, AppDomain.CurrentDomain.BaseDirectory);
 
                 // Delete files
                 if (File.Exists(_param.VersionFile))
