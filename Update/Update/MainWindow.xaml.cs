@@ -34,7 +34,7 @@ namespace Update
             {
                 Console.WriteLine("Update =====> Startup application");
 
-                // Kill Store.exe
+                // Stop Store.exe
                 var processes = Process.GetProcessesByName(_param.AppName);
                 if (processes.Length > 0)
                 {
@@ -54,8 +54,8 @@ namespace Update
                 if (File.Exists(_param.UpdateFile))
                     File.Delete(_param.UpdateFile);
 
-                // Re-open AppName
-                Process.Start(_param.AppName, AppDomain.CurrentDomain.BaseDirectory);
+                // Start Store.exe
+                Process.Start(_param.AppName);
 
                 // Shutdown app
                 Application.Current.Shutdown();
