@@ -54,6 +54,9 @@ namespace Update
                 if (File.Exists(_param.UpdateFile))
                     File.Delete(_param.UpdateFile);
 
+                // Re-open AppName
+                Process.Start(_param.AppName, AppDomain.CurrentDomain.BaseDirectory);
+
                 // Shutdown app
                 Application.Current.Shutdown();
                 Environment.Exit(0);
