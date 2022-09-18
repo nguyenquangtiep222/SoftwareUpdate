@@ -1,7 +1,12 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Update.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="UpdateFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">update.7z</Value>
+    </Setting>
+    <Setting Name="VersionFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">version.txt</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>
