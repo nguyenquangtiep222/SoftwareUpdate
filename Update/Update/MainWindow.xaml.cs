@@ -58,6 +58,7 @@ namespace Update
                 Process.Start(_param.AppName);
 
                 // Shutdown app
+                this.Close();
                 Application.Current.Shutdown();
                 Environment.Exit(0);
             }
