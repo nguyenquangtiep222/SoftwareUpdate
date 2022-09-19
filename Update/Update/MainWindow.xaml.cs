@@ -43,10 +43,20 @@ namespace Update
                 }
 
                 // Extract update.7z
-                var basePath = AppDomain.CurrentDomain.BaseDirectory;
-                var filename = $"{basePath}{_param.UpdateFile}";
+                var filename = $"{AppDomain.CurrentDomain.BaseDirectory}{_param.UpdateFile}";
                 if (File.Exists(filename))
-                    ExtractFile(filename, basePath);
+                {
+                    string zPath = @"C:\Program Files\7-Zip\7z.exe";
+                    var processInfo = new ProcessStartInfo
+                    {
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        FileName = zPath,
+                        Arguments = $"x \"{filename}\" -aoa -o\"{AppDomain.CurrentDomain.BaseDirectory}\""
+                    };
+                    var process = Process.Start(processInfo);
+                    process?.WaitForExit();
+                    process?.Dispose();
+                }
 
                 // Delete files
                 if (File.Exists(_param.VersionFile))
@@ -58,7 +68,6 @@ namespace Update
                 Process.Start(_param.AppName);
 
                 // Shutdown app
-                this.Close();
                 Application.Current.Shutdown();
                 Environment.Exit(0);
             }
