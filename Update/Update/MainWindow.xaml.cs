@@ -34,7 +34,6 @@ namespace Update
             {
                 Console.WriteLine("Update =====> Startup application");
 
-                // Stop Store.exe
                 var processes = Process.GetProcessesByName(_param.AppName);
                 if (processes.Length > 0)
                 {
@@ -42,38 +41,22 @@ namespace Update
                         process.Kill();
                 }
 
-                // Extract update.7z
                 var filename = $"{AppDomain.CurrentDomain.BaseDirectory}{_param.UpdateFile}";
                 if (File.Exists(filename))
-                {
-                    string zPath = @"C:\Program Files\7-Zip\7z.exe";
-                    var processInfo = new ProcessStartInfo
-                    {
-                        WindowStyle = ProcessWindowStyle.Hidden,
-                        FileName = zPath,
-                        Arguments = $"x \"{filename}\" -aoa -o\"{AppDomain.CurrentDomain.BaseDirectory}\""
-                    };
-                    var process = Process.Start(processInfo);
-                    process?.WaitForExit();
-                    process?.Dispose();
-                }
+                    ExtractFile(filename, AppDomain.CurrentDomain.BaseDirectory);
 
-                // Delete files
                 if (File.Exists(_param.VersionFile))
                     File.Delete(_param.VersionFile);
                 if (File.Exists(_param.UpdateFile))
                     File.Delete(_param.UpdateFile);
 
-                // Start Store.exe
                 Process.Start(_param.AppName);
 
-                // Shutdown app
-                Application.Current.Shutdown();
-                Environment.Exit(0);
+                ShutdownApp();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -90,28 +73,23 @@ namespace Update
             finally
             {
                 Console.WriteLine("Update =====> Shutdown application");
+                Application.Current.Shutdown();
+                Environment.Exit(0);
             }
         }
 
         public void ExtractFile(string source, string destination)
         {
-            string zPath = @"C:\Program Files\7-Zip\7zG.exe";
-            try
+            string zPath = @"C:\Program Files\7-Zip\7z.exe";
+            var processInfo = new ProcessStartInfo
             {
-                var processInfo = new ProcessStartInfo
-                {
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    FileName = zPath,
-                    Arguments = $"x \"{source}\" -aoa -o\"{destination}\""
-                };
-                var process = Process.Start(processInfo);
-                process?.WaitForExit();
-                process?.Dispose();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+                WindowStyle = ProcessWindowStyle.Hidden,
+                FileName = zPath,
+                Arguments = $"x \"{source}\" -aoa -o\"{destination}\""
+            };
+            var process = Process.Start(processInfo);
+            process?.WaitForExit();
+            process?.Dispose();
         }
     }
 }
