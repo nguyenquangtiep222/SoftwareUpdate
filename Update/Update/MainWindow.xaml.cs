@@ -51,12 +51,14 @@ namespace Update
                     File.Delete(_param.UpdateFile);
 
                 Process.Start(_param.AppName);
-
-                ShutdownApp();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                ShutdownApp();
             }
         }
 
