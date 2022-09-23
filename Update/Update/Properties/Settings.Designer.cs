@@ -25,13 +25,25 @@ namespace Update.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("update.7z")]
-        public string UpdateFile {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoRun {
             get {
-                return ((string)(this["UpdateFile"]));
+                return ((bool)(this["AutoRun"]));
             }
             set {
-                this["UpdateFile"] = value;
+                this["AutoRun"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Store.exe")]
+        public string AppName {
+            get {
+                return ((string)(this["AppName"]));
+            }
+            set {
+                this["AppName"] = value;
             }
         }
         
@@ -49,13 +61,13 @@ namespace Update.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Store")]
-        public string AppName {
+        [global::System.Configuration.DefaultSettingValueAttribute("update.7z")]
+        public string UpdateFile {
             get {
-                return ((string)(this["AppName"]));
+                return ((string)(this["UpdateFile"]));
             }
             set {
-                this["AppName"] = value;
+                this["UpdateFile"] = value;
             }
         }
     }

@@ -2,14 +2,17 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Update.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="UpdateFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)">update.7z</Value>
+    <Setting Name="AutoRun" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="AppName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Store.exe</Value>
     </Setting>
     <Setting Name="VersionFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">version.txt</Value>
     </Setting>
-    <Setting Name="AppName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Store</Value>
+    <Setting Name="UpdateFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">update.7z</Value>
     </Setting>
   </Settings>
 </SettingsFile>

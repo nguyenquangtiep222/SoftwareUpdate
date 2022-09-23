@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -8,13 +9,45 @@ namespace Update
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private Properties.Settings _param = Properties.Settings.Default;
+
+        #region Binding Property
+        public bool AutoRun
+        {
+            get => _param.AutoRun;
+            set => _param.AutoRun = value;
+        }
+        public string AppName
+        {
+            get => _param.AppName;
+            set => _param.AppName = value;
+        }
+        public string VersionFile
+        {
+            get => _param.VersionFile;
+            set => _param.VersionFile = value;
+        }
+        public string UpdateFile
+        {
+            get => _param.UpdateFile;
+            set => _param.UpdateFile = value;
+        }
+
+        // Declare event
+        public event PropertyChangedEventHandler PropertyChanged;
+        // OnPropertyChanged method to update property value in binding
+        private void OnPropertyChanged(string info = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
+        }
+        #endregion
 
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = this;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -28,37 +61,58 @@ namespace Update
             ShutdownApp();
         }
 
+        private void btnPrimaryButton_Click(object sender, RoutedEventArgs e)
+        {
+            _param.Save();
+            this.Close();
+        }
+
+        private void btnSecondaryButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
         private void StartupApp()
         {
             try
             {
                 Console.WriteLine("Update =====> Startup application");
-
-                var processes = Process.GetProcessesByName(_param.AppName);
-                if (processes.Length > 0)
+                if (_param.AutoRun)
                 {
-                    foreach (var process in processes)
-                        process.Kill();
+                    var processes = Process.GetProcessesByName(_param.AppName.Replace(".exe", ""));
+                    if (processes.Length > 0)
+                    {
+                        foreach (var process in processes)
+                        {
+                            process.Kill();
+                        }
+                    }
+
+                    var filename = $"{AppDomain.CurrentDomain.BaseDirectory}{_param.UpdateFile}";
+                    if (File.Exists(filename))
+                    {
+                        ExtractFile(filename, AppDomain.CurrentDomain.BaseDirectory);
+                    }
+
+                    if (File.Exists(_param.VersionFile))
+                    {
+                        File.Delete(_param.VersionFile);
+                    }
+                    if (File.Exists(_param.UpdateFile))
+                    {
+                        File.Delete(_param.UpdateFile);
+                    }
+
+                    if (File.Exists(_param.AppName))
+                    {
+                        Process.Start(_param.AppName, AppDomain.CurrentDomain.BaseDirectory);
+                        ShutdownApp();
+                    }
                 }
-
-                var filename = $"{AppDomain.CurrentDomain.BaseDirectory}{_param.UpdateFile}";
-                if (File.Exists(filename))
-                    ExtractFile(filename, AppDomain.CurrentDomain.BaseDirectory);
-
-                if (File.Exists(_param.VersionFile))
-                    File.Delete(_param.VersionFile);
-                if (File.Exists(_param.UpdateFile))
-                    File.Delete(_param.UpdateFile);
-
-                Process.Start(_param.AppName);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally
-            {
-                ShutdownApp();
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
         }
 

@@ -16,7 +16,64 @@
         Loaded="Window_Loaded"
         Closed="Window_Closed">
 
-    <Grid>
-
+    <Grid Margin="1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel Margin="5">
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,2,0,2">
+                    <TextBlock Text=""
+                               Width="0"
+                               HorizontalAlignment="Right" />
+                    <CheckBox Content="Tự động cập nhật"
+                              IsChecked="{Binding AutoRun}"
+                              VerticalAlignment="Top" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,2,0,2">
+                    <TextBlock Text="Tên phần mềm"
+                               Width="100"
+                               HorizontalAlignment="Right" />
+                    <TextBox Width="300"
+                             Text="{Binding AppName}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,2,0,2">
+                    <TextBlock Text="Tệp phiên bản"
+                               Width="100"
+                               HorizontalAlignment="Right" />
+                    <TextBox Width="300"
+                             Text="{Binding VersionFile}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,2,0,2">
+                    <TextBlock Text="Tệp cập nhật"
+                               Width="100"
+                               HorizontalAlignment="Right" />
+                    <TextBox Width="300"
+                             Text="{Binding UpdateFile}" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button x:Name="btnPrimaryButton"
+                        Click="btnPrimaryButton_Click"
+                        Content="Lưu"
+                        Width="85"
+                        Height="24"
+                        Margin="0,0,10,15" />
+                <Button x:Name="btnSecondaryButton"
+                        Click="btnSecondaryButton_Click"
+                        Content="Hủy bỏ"
+                        Width="85"
+                        Height="24"
+                        Margin="0,0,10,15" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
