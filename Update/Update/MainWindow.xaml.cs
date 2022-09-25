@@ -52,7 +52,6 @@ namespace Update
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Title = "Update";
             StartupApp();
         }
 
@@ -76,6 +75,7 @@ namespace Update
         {
             try
             {
+                this.Title = "Update";
                 Console.WriteLine("Update =====> Startup application");
                 if (_param.AutoRun)
                 {
