@@ -28,7 +28,7 @@
                     <TextBlock Text=""
                                Width="0"
                                HorizontalAlignment="Right" />
-                    <CheckBox Content="Tự động cập nhật"
+                    <CheckBox Content="Tự động chạy"
                               IsChecked="{Binding AutoRun}"
                               VerticalAlignment="Top" />
                 </StackPanel>
