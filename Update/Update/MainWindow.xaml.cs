@@ -76,7 +76,7 @@ namespace Update
             try
             {
                 this.Title = "Update";
-                Console.WriteLine("Update =====> Startup application");
+                Console.WriteLine("Update =====> Mở ứng dụng");
                 if (_param.AutoRun)
                 {
                     var processes = Process.GetProcessesByName(_param.AppName.Replace(".exe", ""));
@@ -132,7 +132,7 @@ namespace Update
             }
             finally
             {
-                Console.WriteLine("Update =====> Shutdown application");
+                Console.WriteLine("Update =====> Tắt ứng dụng");
                 Application.Current.Shutdown();
                 Environment.Exit(0);
             }
