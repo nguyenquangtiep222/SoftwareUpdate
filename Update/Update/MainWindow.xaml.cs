@@ -111,7 +111,7 @@ namespace Update
                 }
                 else
                 {
-                    MessageBox.Show("Chưa cài đặt chạy tự động.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                    MessageBox.Show("Chưa cài đặt tự động chạy.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
                 }
             }
             catch (Exception ex)
