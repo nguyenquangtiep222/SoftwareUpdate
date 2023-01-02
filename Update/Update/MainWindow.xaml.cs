@@ -19,16 +19,19 @@ namespace Update
             get => _param.AutoRun;
             set => _param.AutoRun = value;
         }
+
         public string AppName
         {
             get => _param.AppName;
             set => _param.AppName = value;
         }
+
         public string VersionFile
         {
             get => _param.VersionFile;
             set => _param.VersionFile = value;
         }
+
         public string UpdateFile
         {
             get => _param.UpdateFile;
@@ -47,7 +50,7 @@ namespace Update
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = this;
+            DataContext = this;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -63,45 +66,38 @@ namespace Update
         private void btnPrimaryButton_Click(object sender, RoutedEventArgs e)
         {
             _param.Save();
-            this.Close();
+            Close();
         }
 
         private void btnSecondaryButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void StartupApp()
         {
             try
             {
-                this.Title = "Update";
+                Title = "Update";
                 Console.WriteLine("Update =====> Mở ứng dụng");
                 if (_param.AutoRun)
                 {
-                    var processes = Process.GetProcessesByName(_param.AppName.Replace(".exe", ""));
+                    Process[] processes = Process.GetProcessesByName(_param.AppName.Replace(".exe", ""));
                     if (processes.Length > 0)
                     {
-                        foreach (var process in processes)
-                        {
+                        foreach (Process process in processes)
                             process.Kill();
-                        }
                     }
 
-                    var filename = $"{AppDomain.CurrentDomain.BaseDirectory}{_param.UpdateFile}";
+                    string filename = $"{AppDomain.CurrentDomain.BaseDirectory}{_param.UpdateFile}";
                     if (File.Exists(filename))
-                    {
                         ExtractFile(filename, AppDomain.CurrentDomain.BaseDirectory);
-                    }
 
                     if (File.Exists(_param.VersionFile))
-                    {
                         File.Delete(_param.VersionFile);
-                    }
+
                     if (File.Exists(_param.UpdateFile))
-                    {
                         File.Delete(_param.UpdateFile);
-                    }
 
                     if (File.Exists(_param.AppName))
                     {
@@ -141,13 +137,13 @@ namespace Update
         public void ExtractFile(string source, string destination)
         {
             string zPath = @"C:\Program Files\7-Zip\7z.exe";
-            var processInfo = new ProcessStartInfo
+            ProcessStartInfo processInfo = new ProcessStartInfo
             {
                 WindowStyle = ProcessWindowStyle.Hidden,
                 FileName = zPath,
                 Arguments = $"x \"{source}\" -aoa -o\"{destination}\""
             };
-            var process = Process.Start(processInfo);
+            Process process = Process.Start(processInfo);
             process?.WaitForExit();
             process?.Dispose();
         }
