@@ -11,7 +11,7 @@ namespace Update
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private Properties.Settings _param = Properties.Settings.Default;
+        private MachineParams _param = MachineParams.Current;
 
         #region Binding Property
         public bool AutoRun
@@ -65,7 +65,7 @@ namespace Update
 
         private void btnPrimaryButton_Click(object sender, RoutedEventArgs e)
         {
-            _param.Save();
+            _param.SaveToFile();
             Close();
         }
 
@@ -80,6 +80,7 @@ namespace Update
             {
                 Title = "Update";
                 Console.WriteLine("Update =====> Mở ứng dụng");
+                MachineParams.Reload();
                 if (_param.AutoRun)
                 {
                     Process[] processes = Process.GetProcessesByName(_param.AppName.Replace(".exe", ""));
