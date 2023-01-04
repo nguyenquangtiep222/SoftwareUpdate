@@ -40,8 +40,8 @@ namespace Update
 
         // Declare event
         public event PropertyChangedEventHandler PropertyChanged;
-        // OnPropertyChanged method to update property value in binding
-        private void OnPropertyChanged(string info = null)
+        // NotifyPropertyChanged method to update property value in binding
+        public void NotifyPropertyChanged(string info = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
         }
@@ -80,7 +80,6 @@ namespace Update
             {
                 Title = "Update";
                 Console.WriteLine("Update =====> Mở ứng dụng");
-                MachineParams.Reload();
                 if (_param.AutoRun)
                 {
                     Process[] processes = Process.GetProcessesByName(_param.AppName.Replace(".exe", ""));
@@ -108,12 +107,12 @@ namespace Update
                 }
                 else
                 {
-                    MessageBox.Show("Chưa cài đặt tự động chạy.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                    MessageBox.Show("Chưa cài đặt tự động chạy.", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
         }
 
@@ -135,7 +134,7 @@ namespace Update
             }
         }
 
-        public void ExtractFile(string source, string destination)
+        private void ExtractFile(string source, string destination)
         {
             string zPath = @"C:\Program Files\7-Zip\7z.exe";
             ProcessStartInfo processInfo = new ProcessStartInfo
